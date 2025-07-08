@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
+import "easymde/dist/easymde.min.css";
 
 const workSans = localFont({
   src: [
@@ -41,7 +42,6 @@ const workSans = localFont({
     },
     {
       path: "./fonts/WorkSans-Light.ttf",
-      weight: "200",
       style: "normal",
     },
     {
@@ -65,7 +65,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={workSans.variable}>{children}</body>
+      <body className={workSans.variable} suppressHydrationWarning={true}>
+        {children}
+      </body>
     </html>
   );
 }
