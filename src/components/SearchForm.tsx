@@ -15,7 +15,7 @@ const SarchForm = ({ query }: { query?: string }) => {
       <div className="flex gap-2">
         {query && <SearchFormResetBtn />}
         <button type="submit" className="search-btn">
-          <SearchIcon className="size-5" />
+          <SearchIcon className="size-5 text-white" />
         </button>
       </div>
     </Form>
