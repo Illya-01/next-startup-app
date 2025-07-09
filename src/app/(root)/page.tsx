@@ -1,5 +1,7 @@
-import StartupCard from "../../components/StartupCard";
+import StartupCard, { StartupCardType } from "../../components/StartupCard";
 import SearchForm from "../../components/SearchForm";
+import { client } from "../../sanity/lib/client";
+import { STARTUPS_QUERY } from "../../sanity/lib/queries";
 
 export default async function Home({
   searchParams,
@@ -8,23 +10,7 @@ export default async function Home({
 }) {
   const { query } = await searchParams;
 
-  const posts = [
-    {
-      _id: 1,
-      views: 232,
-      author: {
-        _id: 1,
-        name: "Steven Smith",
-      },
-      description:
-        "A mobile app that helps users track and reduce their carbo and best ins...",
-      image:
-        "https://assets.super.so/9b1db7dc-155d-4da6-bf88-a68ad1c2af0f/images/c264fdfb-08b5-4bf8-b834-2ba2683f3056/opengraph-image.png",
-      category: "Robots",
-      title: "We Robots",
-      _createdAt: new Date(),
-    },
-  ];
+  const posts = await client.fetch(STARTUPS_QUERY);
 
   return (
     <>
@@ -45,8 +31,8 @@ export default async function Home({
         </p>
         <ul className="mt-7 card_grid">
           {posts?.length > 0 ? (
-            posts.map((post: StartupTypeCard) => (
-              <StartupCard key={post._id} post={post} />
+            posts.map((post) => (
+              <StartupCard key={post._id} post={post as StartupCardType} />
             ))
           ) : (
             <p className="no-result">No startup found</p>
