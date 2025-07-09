@@ -1,5 +1,5 @@
 import { EyeIcon } from "lucide-react";
-import { formatDate } from "../utils";
+import { formatDate, formatNumber } from "../utils";
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
@@ -26,7 +26,9 @@ const StartupCard = ({ post }: { post: StartupCardType }) => {
         <p className="startup-card_date">{formatDate(_createdAt)}</p>
         <div className="flex gap-1.5">
           <EyeIcon className="size-6 text-primary" />
-          <span className="text-16-medium">{views}</span>
+          <span className="text-16-medium">
+            {formatNumber(views as number)}
+          </span>
         </div>
       </div>
 
@@ -53,7 +55,13 @@ const StartupCard = ({ post }: { post: StartupCardType }) => {
 
       <Link href={`/startup/${_id}`}>
         <p className="startup-card_desc">{description}</p>
-        <img src={image} alt="startup image" className="startup-card_img" />
+        <Image
+          src={image || "https://placehold.co/500x300.png"}
+          alt="startup image"
+          className="startup-card_img"
+          width={500}
+          height={300}
+        />
       </Link>
 
       <div className="flex-between gap-3 mt-5">
