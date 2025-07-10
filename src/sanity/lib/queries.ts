@@ -15,7 +15,7 @@ export const STARTUPS_QUERY = defineQuery(`
   image, 
   description,
   views,
-  author -> {_id, name, image, bio} 
+  author -> {_id, name, image} 
 }
 `);
 
@@ -30,7 +30,7 @@ export const STARTUP_DETAILS_QUERY = defineQuery(`
   pitch, 
   views,
   description,
-  author -> {_id, name, username, image, bio} 
+  author -> {_id, name, username, image} 
 }
 `);
 
@@ -38,5 +38,15 @@ export const STARTUP_VIEWS_QUERY = defineQuery(`
   * [ _type == 'startup' && _id == $id ][0] {
   _id,
   views,
+}
+`);
+
+export const AUTHOR_BY_GOOGLE_ID_QUERY = defineQuery(`
+  * [ _type == 'author' && id == $id ][0] {
+  _id,
+  name,
+  username,
+  image,
+  email,
 }
 `);

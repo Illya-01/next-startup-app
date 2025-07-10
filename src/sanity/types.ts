@@ -40,12 +40,11 @@ export type Author = {
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
-  id?: number;
+  id?: string;
   name?: string;
   username?: string;
   email?: string;
   image?: string;
-  bio?: string;
 };
 
 export type Markdown = string;
@@ -172,7 +171,7 @@ export type AllSanitySchemaTypes = Startup | Author | Markdown | SanityImagePale
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ./src/sanity/lib/queries.ts
 // Variable: STARTUPS_QUERY
-// Query: * [_type == 'startup'   && defined(slug.current) && !defined($search)  || title match $search  || category match $search  || author -> name match $search ]  | order(_createdAt desc) {  _id,   _createdAt,   title,   slug,   category,   image,   description,  views,  author -> {_id, name, image, bio} }
+// Query: * [_type == 'startup'   && defined(slug.current) && !defined($search)  || title match $search  || category match $search  || author -> name match $search ]  | order(_createdAt desc) {  _id,   _createdAt,   title,   slug,   category,   image,   description,  views,  author -> {_id, name, image} }
 export type STARTUPS_QUERYResult = Array<{
   _id: string;
   _createdAt: string;
@@ -206,11 +205,10 @@ export type STARTUPS_QUERYResult = Array<{
     _id: string;
     name: string | null;
     image: string | null;
-    bio: string | null;
   } | null;
 }>;
 // Variable: STARTUP_DETAILS_QUERY
-// Query: * [ _type == 'startup' && _id == $id ][0] {  _id,   _createdAt,   title,   slug,   category,   image,   pitch,   views,  description,  author -> {_id, name, username, image, bio} }
+// Query: * [ _type == 'startup' && _id == $id ][0] {  _id,   _createdAt,   title,   slug,   category,   image,   pitch,   views,  description,  author -> {_id, name, username, image} }
 export type STARTUP_DETAILS_QUERYResult = {
   _id: string;
   _createdAt: string;
@@ -226,7 +224,6 @@ export type STARTUP_DETAILS_QUERYResult = {
     name: string | null;
     username: string | null;
     image: string | null;
-    bio: string | null;
   } | null;
 } | null;
 // Variable: STARTUP_VIEWS_QUERY
@@ -235,13 +232,23 @@ export type STARTUP_VIEWS_QUERYResult = {
   _id: string;
   views: number | null;
 } | null;
+// Variable: AUTHOR_BY_GOOGLE_ID_QUERY
+// Query: * [ _type == 'author' && id == $id ][0] {  _id,  name,  username,  image,  email,}
+export type AUTHOR_BY_GOOGLE_ID_QUERYResult = {
+  _id: string;
+  name: string | null;
+  username: string | null;
+  image: string | null;
+  email: string | null;
+} | null;
 
 // Query TypeMap
 import "@sanity/client";
 declare module "@sanity/client" {
   interface SanityQueries {
-    "\n  * [_type == 'startup' \n  && defined(slug.current) && !defined($search)\n  || title match $search\n  || category match $search\n  || author -> name match $search ]\n  | order(_createdAt desc) {\n  _id, \n  _createdAt, \n  title, \n  slug, \n  category, \n  image, \n  description,\n  views,\n  author -> {_id, name, image, bio} \n}\n": STARTUPS_QUERYResult;
-    "\n  * [ _type == 'startup' && _id == $id ][0] {\n  _id, \n  _createdAt, \n  title, \n  slug, \n  category, \n  image, \n  pitch, \n  views,\n  description,\n  author -> {_id, name, username, image, bio} \n}\n": STARTUP_DETAILS_QUERYResult;
+    "\n  * [_type == 'startup' \n  && defined(slug.current) && !defined($search)\n  || title match $search\n  || category match $search\n  || author -> name match $search ]\n  | order(_createdAt desc) {\n  _id, \n  _createdAt, \n  title, \n  slug, \n  category, \n  image, \n  description,\n  views,\n  author -> {_id, name, image} \n}\n": STARTUPS_QUERYResult;
+    "\n  * [ _type == 'startup' && _id == $id ][0] {\n  _id, \n  _createdAt, \n  title, \n  slug, \n  category, \n  image, \n  pitch, \n  views,\n  description,\n  author -> {_id, name, username, image} \n}\n": STARTUP_DETAILS_QUERYResult;
     "\n  * [ _type == 'startup' && _id == $id ][0] {\n  _id,\n  views,\n}\n": STARTUP_VIEWS_QUERYResult;
+    "\n  * [ _type == 'author' && id == $id ][0] {\n  _id,\n  name,\n  username,\n  image,\n  email,\n}\n": AUTHOR_BY_GOOGLE_ID_QUERYResult;
   }
 }
