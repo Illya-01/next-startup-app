@@ -24,3 +24,7 @@ export function formatItemCount(views: number, countableItem: string): string {
 export function parseServerActionResponse<T>(response: T): T {
   return JSON.parse(JSON.stringify(response));
 }
+
+export function getFirstLetter(str: string): string {
+  return str.charAt(0).toUpperCase();
+}

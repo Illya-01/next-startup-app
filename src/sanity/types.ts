@@ -207,9 +207,9 @@ export type STARTUPS_QUERYResult = Array<{
     image: string | null;
   } | null;
 }>;
-// Variable: STARTUP_DETAILS_QUERY
+// Variable: STARTUP_BY_ID_QUERY
 // Query: * [ _type == 'startup' && _id == $id ][0] {  _id,   _createdAt,   title,   slug,   category,   image,   pitch,   views,  description,  author -> {_id, name, username, image} }
-export type STARTUP_DETAILS_QUERYResult = {
+export type STARTUP_BY_ID_QUERYResult = {
   _id: string;
   _createdAt: string;
   title: string | null;
@@ -226,6 +226,23 @@ export type STARTUP_DETAILS_QUERYResult = {
     image: string | null;
   } | null;
 } | null;
+// Variable: STARTUPS_BY_AUTHOR_QUERY
+// Query: * [_type == 'startup' && author._ref == $id]  | order(_createdAt desc) {  _id,   _createdAt,   title,   slug,   category,   image,   description,  views,  author -> {_id, name, image} }
+export type STARTUPS_BY_AUTHOR_QUERYResult = Array<{
+  _id: string;
+  _createdAt: string;
+  title: string | null;
+  slug: Slug | null;
+  category: string | null;
+  image: string | null;
+  description: string | null;
+  views: number | null;
+  author: {
+    _id: string;
+    name: string | null;
+    image: string | null;
+  } | null;
+}>;
 // Variable: STARTUP_VIEWS_QUERY
 // Query: * [ _type == 'startup' && _id == $id ][0] {  _id,  views,}
 export type STARTUP_VIEWS_QUERYResult = {
@@ -241,14 +258,25 @@ export type AUTHOR_BY_GOOGLE_ID_QUERYResult = {
   image: string | null;
   email: string | null;
 } | null;
+// Variable: AUTHOR_BY_ID_QUERY
+// Query: * [ _type == 'author' && _id == $id ][0] {  _id,  name,  username,  image,  email,}
+export type AUTHOR_BY_ID_QUERYResult = {
+  _id: string;
+  name: string | null;
+  username: string | null;
+  image: string | null;
+  email: string | null;
+} | null;
 
 // Query TypeMap
 import "@sanity/client";
 declare module "@sanity/client" {
   interface SanityQueries {
     "\n  * [_type == 'startup' \n  && defined(slug.current) && !defined($search)\n  || title match $search\n  || category match $search\n  || author -> name match $search ]\n  | order(_createdAt desc) {\n  _id, \n  _createdAt, \n  title, \n  slug, \n  category, \n  image, \n  description,\n  views,\n  author -> {_id, name, image} \n}\n": STARTUPS_QUERYResult;
-    "\n  * [ _type == 'startup' && _id == $id ][0] {\n  _id, \n  _createdAt, \n  title, \n  slug, \n  category, \n  image, \n  pitch, \n  views,\n  description,\n  author -> {_id, name, username, image} \n}\n": STARTUP_DETAILS_QUERYResult;
+    "\n  * [ _type == 'startup' && _id == $id ][0] {\n  _id, \n  _createdAt, \n  title, \n  slug, \n  category, \n  image, \n  pitch, \n  views,\n  description,\n  author -> {_id, name, username, image} \n}\n": STARTUP_BY_ID_QUERYResult;
+    "\n  * [_type == 'startup' && author._ref == $id]\n  | order(_createdAt desc) {\n  _id, \n  _createdAt, \n  title, \n  slug, \n  category, \n  image, \n  description,\n  views,\n  author -> {_id, name, image} \n}\n": STARTUPS_BY_AUTHOR_QUERYResult;
     "\n  * [ _type == 'startup' && _id == $id ][0] {\n  _id,\n  views,\n}\n": STARTUP_VIEWS_QUERYResult;
     "\n  * [ _type == 'author' && id == $id ][0] {\n  _id,\n  name,\n  username,\n  image,\n  email,\n}\n": AUTHOR_BY_GOOGLE_ID_QUERYResult;
+    "\n  * [ _type == 'author' && _id == $id ][0] {\n  _id,\n  name,\n  username,\n  image,\n  email,\n}\n": AUTHOR_BY_ID_QUERYResult;
   }
 }

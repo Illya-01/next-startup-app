@@ -1,5 +1,5 @@
 import { client } from "@/sanity/lib/client";
-import { STARTUP_DETAILS_QUERY } from "@/sanity/lib/queries";
+import { STARTUP_BY_ID_QUERY } from "@/sanity/lib/queries";
 import { formatDate } from "@/lib/custom-utils";
 import Image from "next/image";
 import Link from "next/link";
@@ -17,7 +17,7 @@ const StartupDetailsPage = async ({
   params: Promise<{ id: string }>;
 }) => {
   const { id } = await params;
-  const post = await client.fetch(STARTUP_DETAILS_QUERY, { id });
+  const post = await client.fetch(STARTUP_BY_ID_QUERY, { id });
 
   if (!post) return notFound();
 
