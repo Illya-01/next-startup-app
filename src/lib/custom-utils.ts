@@ -20,3 +20,7 @@ export function formatItemCount(views: number, countableItem: string): string {
   const formattedNumber = formatNumber(views);
   return `${formattedNumber} ${views === 1 ? countableItem : `${countableItem}s`}`;
 }
+
+export function parseServerActionResponse<T>(response: T): T {
+  return JSON.parse(JSON.stringify(response));
+}

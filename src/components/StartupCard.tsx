@@ -1,5 +1,5 @@
 import { EyeIcon } from "lucide-react";
-import { formatDate, formatNumber } from "../utils";
+import { formatDate, formatNumber } from "../lib/custom-utils";
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";

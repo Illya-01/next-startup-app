@@ -1,6 +1,6 @@
 import { client } from "@/sanity/lib/client";
 import { STARTUP_VIEWS_QUERY } from "@/sanity/lib/queries";
-import { formatItemCount } from "@/utils";
+import { formatItemCount } from "@/lib/custom-utils";
 import { writeClient } from "@/sanity/lib/write-client";
 
 const ViewCounter = async ({ id }: { id: string }) => {

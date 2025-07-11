@@ -1,6 +1,6 @@
 import { client } from "@/sanity/lib/client";
 import { STARTUP_DETAILS_QUERY } from "@/sanity/lib/queries";
-import { formatDate } from "@/utils";
+import { formatDate } from "@/lib/custom-utils";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
