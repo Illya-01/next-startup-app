@@ -22,90 +22,35 @@ const StartupForm = () => {
   const [pitch, setPitch] = useState("");
   const router = useRouter();
 
-  // Form field states to preserve values
-  const [formData, setFormData] = useState({
-    title: "",
-    description: "",
-    category: "",
-    link: "",
-  });
-
-  // Handle input changes to preserve values
-  const handleInputChange = (field: string, value: string) => {
-    setFormData((prev) => ({
-      ...prev,
-      [field]: value,
-    }));
-
-    // Clear error for this field when user starts typing
-    if (errors[field]) {
-      setErrors((prev) => {
-        const newErrors = { ...prev };
-        delete newErrors[field];
-        return newErrors;
-      });
-    }
-  };
-
   const handleFormSubmit = async (
     prevState: FormState,
-    formDataObj: FormData
+    formData: FormData
   ): Promise<FormState> => {
     try {
       const formValues = {
-        title: formData.title || (formDataObj.get("title") as string),
-        description:
-          formData.description || (formDataObj.get("description") as string),
-        category: formData.category || (formDataObj.get("category") as string),
-        link: formData.link || (formDataObj.get("link") as string),
+        title: formData.get("title") as string,
+        description: formData.get("description") as string,
+        category: formData.get("category") as string,
+        link: formData.get("link") as string,
         pitch,
       };
 
-      // Update form state to preserve values in case of validation errors
-      setFormData({
-        title: formValues.title,
-        description: formValues.description,
-        category: formValues.category,
-        link: formValues.link,
-      });
-
       await formSchema.parseAsync(formValues);
 
-      const result = await createPitch(formDataObj, pitch);
+      const result = await createPitch(formData, pitch);
 
       if (result.status === "SUCCESS") {
         toast.success("Success", {
           description: "Your startup pitch has been created successfully!",
         });
 
-        // Reset form after successful submission
-        setFormData({
-          title: "",
-          description: "",
-          category: "",
-          link: "",
-        });
-        setPitch("");
-        setErrors({});
-
         router.push(`/startup/${result._id}`);
-
-        return {
-          error: "",
-          status: "SUCCESS",
-        };
-      } else {
-        // Handle server action error
-        toast.error("Error", {
-          description: result.error || "Failed to create pitch",
-        });
-
-        return {
-          ...prevState,
-          error: result.error || "Failed to create pitch",
-          status: "ERROR",
-        };
       }
+
+      return {
+        error: "",
+        status: "SUCCESS",
+      };
     } catch (error) {
       console.log("Validation error:", error);
 
