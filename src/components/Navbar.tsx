@@ -4,7 +4,7 @@ import React from "react";
 import { auth, signIn, signOut } from "../app/auth";
 import { CirclePlus, LogOut } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
-import { getFirstLetter as capitalizeFirstLetter } from "@/lib/custom-utils";
+import { getFirstLetter } from "@/lib/custom-utils";
 
 const Navbar = async () => {
   const session = await auth();
@@ -44,7 +44,7 @@ const Navbar = async () => {
                     alt="user avatar"
                   />
                   <AvatarFallback className="text-16-medium bg-primary text-white">
-                    {capitalizeFirstLetter(session?.user?.name || "U")}
+                    {getFirstLetter(session?.user?.name || "U")}
                   </AvatarFallback>
                 </Avatar>
               </Link>

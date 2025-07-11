@@ -1,6 +1,8 @@
 import { auth } from "@/app/auth";
 import CardsSkeleton from "@/components/CardsSkeleton";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import UserStartups from "@/components/UserStartups";
+import { getFirstLetter } from "@/lib/custom-utils";
 import { client } from "@/sanity/lib/client";
 import { AUTHOR_BY_ID_QUERY } from "@/sanity/lib/queries";
 import Image from "next/image";
@@ -28,12 +30,15 @@ const UserPage = async ({ params }: { params: Promise<{ id: string }> }) => {
             </h3>
           </div>
 
-          <Image
-            src={user.image as string}
-            alt="user profile picture"
-            width={200}
-            height={200}
-          />
+          <Avatar className="size-[200px] rounded-none">
+            <AvatarImage
+              src={session?.user?.image as string}
+              alt="user profile picture"
+            />
+            <AvatarFallback className="text-6xl bg-primary-100 text-black rounded-none">
+              {getFirstLetter(session?.user?.name || "U")}
+            </AvatarFallback>
+          </Avatar>
 
           <p className="text-30-extrabold mt-7 text-center">{user.username}</p>
         </div>

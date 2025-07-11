@@ -1,10 +1,11 @@
 import { EyeIcon } from "lucide-react";
-import { formatDate, formatNumber } from "../lib/custom-utils";
+import { formatDate, formatNumber, getFirstLetter } from "../lib/custom-utils";
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { Button } from "./ui/button";
 import { Author, Startup } from "../sanity/types";
+import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 
 export type StartupCardType = Omit<Startup, "author"> & { author?: Author };
 
@@ -43,13 +44,12 @@ const StartupCard = ({ post }: { post: StartupCardType }) => {
         </div>
 
         <Link href={`/user/${author?._id}`}>
-          <Image
-            src={author?.image || "https://placehold.co/100x100.png"}
-            alt="user avatar image"
-            width={48}
-            height={48}
-            className="rounded-full"
-          />
+          <Avatar className="size-12">
+            <AvatarImage src={author?.image as string} alt="user avatar" />
+            <AvatarFallback className="text-xl font-semibold bg-primary text-white">
+              {getFirstLetter(author?.name || "U")}
+            </AvatarFallback>
+          </Avatar>
         </Link>
       </div>
 
