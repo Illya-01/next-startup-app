@@ -22,12 +22,14 @@ const StartupDetailsPage = async ({
 }) => {
   const { id } = await params;
 
-  const [post, { select: selectedPosts }] = await Promise.all([
+  const [post, playlist] = await Promise.all([
     client.fetch(STARTUP_BY_ID_QUERY, { id }),
     client.fetch(PLAYLIST_BY_SLUG_QUERY, {
       slug: "best-of-the-month",
     }),
   ]);
+
+  const selectedPosts = playlist?.select || [];
 
   if (!post) return notFound();
 
@@ -95,8 +97,11 @@ const StartupDetailsPage = async ({
             <p className="text-30-semibold">Best of the month</p>
 
             <ul className="mt-7 card_grid-sm">
-              {selectedPosts.map((startup: StartupCardType) => (
-                <StartupCard key={startup._id} post={startup} />
+              {selectedPosts.map((startup) => (
+                <StartupCard
+                  key={startup._id}
+                  post={startup as unknown as StartupCardType}
+                />
               ))}
             </ul>
           </section>
