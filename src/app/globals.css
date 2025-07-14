@@ -2,7 +2,8 @@
 
 :root {
   --background: #ffffff;
-  --foreground: #171717;
+  --foreground: #000000;
+  --primary-800: #3f0e1c;
   --radius: 0.5rem;
 }
 
@@ -10,6 +11,8 @@
   /* Colors */
   --color-primary-100: #ffe8f0;
   --color-primary-400: #ef4444;
+  --color-primary-800: var(--primary-800);
+  --color-primary-950: #290912;
   --color-primary: #ee2b69;
   --color-secondary: #fbe843;
   --color-black-100: #333333;
@@ -42,15 +45,15 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #000000;
+    --foreground: #ffffff;
   }
 }
 
 /* Dark mode class-based toggle */
 .dark {
-  --background: #0a0a0a;
-  --foreground: #ededed;
+  --background: #000000;
+  --foreground: #ffffff;
 }
 
 /* Utilities */
@@ -63,31 +66,31 @@
 }
 
 @utility text-30-extrabold {
-  @apply text-[30px] font-extrabold text-white;
+  @apply text-[30px] font-extrabold text-foreground;
 }
 
 @utility text-30-bold {
-  @apply text-[30px] font-bold text-black;
+  @apply text-[30px] font-bold text-foreground;
 }
 
 @utility text-30-semibold {
-  @apply font-semibold text-[30px] text-black;
+  @apply font-semibold text-[30px] text-foreground;
 }
 
 @utility text-26-semibold {
-  @apply font-semibold text-[26px] text-black;
+  @apply font-semibold text-[26px] text-foreground;
 }
 
 @utility text-24-black {
-  @apply text-[24px] font-black text-black;
+  @apply text-[24px] font-black text-foreground;
 }
 
 @utility text-20-medium {
-  @apply font-medium text-[20px] text-black;
+  @apply font-medium text-[20px] text-foreground;
 }
 
 @utility text-16-medium {
-  @apply font-medium text-[16px] text-black;
+  @apply font-medium text-[16px] text-foreground;
 }
 
 @utility text-14-normal {
@@ -123,7 +126,7 @@
 }
 
 @utility no-result {
-  @apply text-black-100 text-sm font-normal;
+  @apply text-black-100 dark:text-white-100 text-sm font-normal;
 }
 
 /* profile */
@@ -132,11 +135,11 @@
 }
 
 @utility profile_card {
-  @apply w-80 px-6 pb-6 pt-20 flex flex-col justify-center items-center bg-primary border-[5px] border-black shadow-100 rounded-[30px] relative z-0 h-fit max-lg:w-full;
+  @apply w-80 px-6 pb-6 pt-20 flex flex-col justify-center items-center bg-primary border-[5px] border-foreground shadow-100 rounded-[30px] relative z-0 h-fit max-lg:w-full;
 }
 
 @utility profile_title {
-  @apply w-11/12 bg-white border-[5px] border-black rounded-[20px] px-5 py-3 absolute -top-9 after:absolute after:content-[''] after:-top-1 after:right-0 after:-skew-y-6 after:bg-black after:-z-[1] after:rounded-[20px] after:w-full after:h-[60px] before:absolute before:content-[''] before:-bottom-1 before:left-0  before:-skew-y-6 before:w-full before:h-[60px] before:bg-black  before:-z-[1] before:rounded-[20px] shadow-100;
+  @apply w-11/12 bg-background border-[5px] dark:border-2 border-foreground rounded-[20px] px-5 py-3 absolute -top-9 after:absolute after:content-[''] after:-top-1 after:right-0 after:-skew-y-6 after:bg-black after:-z-[1] after:rounded-[20px] after:w-full after:h-[60px] before:absolute before:content-[''] before:-bottom-1 before:left-0  before:-skew-y-6 before:w-full before:h-[60px] before:bg-black  before:-z-[1] before:rounded-[20px] shadow-100;
 }
 
 @utility profile_image {
@@ -167,28 +170,28 @@
 
 /* searchform */
 @utility search-form {
-  @apply max-w-3xl w-full min-h-[80px] bg-white border-[5px] border-black rounded-[80px] text-[24px] mt-8 px-5 flex flex-row items-center gap-5;
+  @apply max-w-3xl w-full min-h-[80px] bg-background border-[5px] dark:border-2 border-foreground outline-none rounded-[80px] text-[24px] mt-8 px-5 flex flex-row items-center gap-5;
 }
 
 @utility search-input {
-  @apply flex-1 font-bold text-black placeholder:font-semibold placeholder:text-black-100 w-full h-auto outline-none;
+  @apply flex-1 font-bold text-foreground placeholder:font-semibold placeholder:text-black-100 dark:placeholder:text-white-100/90 w-full h-auto outline-none;
 }
 
 @utility search-btn {
-  @apply size-[50px] rounded-full bg-black flex justify-center items-center;
+  @apply size-[50px] rounded-full bg-foreground text-background flex justify-center items-center;
 }
 
 /* startupcard */
 @utility startup-card {
-  @apply bg-white border-[5px] border-black py-6 px-5 rounded-[22px] shadow-200 hover:border-primary transition-all duration-500 hover:shadow-300 hover:bg-primary-100;
+  @apply bg-background text-foreground border-[5px] border-foreground py-6 px-5 rounded-[22px] shadow-200 hover:border-primary dark:border-primary-800 transition-all duration-500 hover:shadow-300 hover:bg-primary-100 dark:hover:bg-primary-950;
 }
 
 @utility startup-card_date {
-  @apply font-medium text-[16px] bg-primary-100 px-4 py-2 rounded-full group-hover:bg-white-100;
+  @apply font-medium text-[16px] bg-primary-100 dark:bg-black-200 px-4 py-2 rounded-full group-hover:bg-white-100 dark:group-hover:bg-background;
 }
 
 @utility startup-card_desc {
-  @apply font-normal text-[16px] line-clamp-2 my-3 text-black-100 break-all;
+  @apply font-normal text-[16px] line-clamp-2 my-3 text-black-100 dark:text-white-100/75 break-all;
 }
 
 @utility startup-card_img {
@@ -196,7 +199,7 @@
 }
 
 @utility startup-card_btn {
-  @apply rounded-full bg-black-200 font-medium text-[16px] text-white px-5 py-3;
+  @apply rounded-full bg-black-200 dark:group-hover:bg-black font-medium text-[16px] text-white px-5 py-3;
 }
 
 @utility startup-card_skeleton {
@@ -205,19 +208,19 @@
 
 /* startupform */
 @utility startup-form {
-  @apply max-w-2xl mx-auto bg-white my-10 space-y-8 px-6;
+  @apply max-w-2xl mx-auto bg-background text-foreground my-10 space-y-8 px-6;
 }
 
 @utility startup-form_label {
-  @apply font-bold text-[18px] text-black uppercase;
+  @apply font-bold text-[18px] uppercase;
 }
 
 @utility startup-form_input {
-  @apply border-[3px] border-black px-5 py-7 text-[18px] text-black font-semibold rounded-full mt-3 placeholder:text-black-300;
+  @apply border-[3px] border-black dark:border-2 dark:border-white px-5 py-7 text-[18px] font-semibold rounded-full mt-3 placeholder:text-black-300;
 }
 
 @utility startup-form_textarea {
-  @apply border-[3px] border-black p-5 text-[18px] text-black font-semibold rounded-[20px] mt-3 placeholder:text-black-300;
+  @apply border-[3px] border-foreground p-5 text-[18px] font-semibold rounded-[20px] mt-3 placeholder:text-black-300;
 }
 
 @utility startup-form_error {

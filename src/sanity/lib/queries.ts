@@ -75,3 +75,28 @@ export const AUTHOR_BY_ID_QUERY = defineQuery(`
   email,
 }
 `);
+
+export const PLAYLIST_BY_SLUG_QUERY =
+  defineQuery(`*[_type == "playlist" && slug.current == $slug][0]{
+  _id,
+  title,
+  slug,
+  select[]->{
+    _id,
+    _createdAt,
+    title,
+    slug,
+    author->{
+      _id,
+      name,
+      slug,
+      image,
+      username
+    },
+    views,
+    description,
+    category,
+    image,
+    pitch
+  }
+}`);

@@ -1,5 +1,8 @@
 import { client } from "@/sanity/lib/client";
-import { STARTUP_BY_ID_QUERY } from "@/sanity/lib/queries";
+import {
+  PLAYLIST_BY_SLUG_QUERY,
+  STARTUP_BY_ID_QUERY,
+} from "@/sanity/lib/queries";
 import { formatDate } from "@/lib/custom-utils";
 import Image from "next/image";
 import Link from "next/link";
@@ -8,6 +11,7 @@ import React, { Suspense } from "react";
 import markdownit from "markdown-it";
 import { Skeleton } from "@/components/ui/skeleton";
 import View from "@/components/View";
+import StartupCard, { StartupCardType } from "@/components/StartupCard";
 
 export const experimental_ppr = true;
 
@@ -17,7 +21,13 @@ const StartupDetailsPage = async ({
   params: Promise<{ id: string }>;
 }) => {
   const { id } = await params;
-  const post = await client.fetch(STARTUP_BY_ID_QUERY, { id });
+
+  const [post, { select: selectedPosts }] = await Promise.all([
+    client.fetch(STARTUP_BY_ID_QUERY, { id }),
+    client.fetch(PLAYLIST_BY_SLUG_QUERY, {
+      slug: "best-of-the-month",
+    }),
+  ]);
 
   if (!post) return notFound();
 
@@ -66,7 +76,7 @@ const StartupDetailsPage = async ({
           </div>
 
           <section>
-            <h3 className="text-30-bold">Pitch details</h3>
+            <h3 className="text-30-bold mb-7">Pitch details</h3>
             {parsedPitch ? (
               <article
                 className="markdown"
@@ -79,13 +89,23 @@ const StartupDetailsPage = async ({
         </div>
 
         <hr className="divider" />
+
+        {selectedPosts?.length > 0 && (
+          <section className="max-w-4xl mx-auto">
+            <p className="text-30-semibold">Best of the month</p>
+
+            <ul className="mt-7 card_grid-sm">
+              {selectedPosts.map((startup: StartupCardType) => (
+                <StartupCard key={startup._id} post={startup} />
+              ))}
+            </ul>
+          </section>
+        )}
+
+        <Suspense fallback={<Skeleton className="view_skeleton" />}>
+          <View id={id} />
+        </Suspense>
       </section>
-
-      {/* TODO: Implement Similar startups */}
-
-      <Suspense fallback={<Skeleton className="view_skeleton" />}>
-        <View id={id} />
-      </Suspense>
     </>
   );
 };

@@ -149,9 +149,7 @@ const StartupForm = () => {
       </div>
 
       <div data-color-mode="light">
-        <label htmlFor="pitch" className="startup-form_label">
-          Pitch
-        </label>
+        <p className="startup-form_label">Pitch</p>
         <MDEditor
           value={pitch}
           onChange={(value) => setPitch(value as string)}
@@ -163,6 +161,9 @@ const StartupForm = () => {
             overflow: "hidden",
             borderWidth: 3,
             padding: 12,
+            backgroundColor: "var(--background)",
+            borderColor: "var(--foreground)",
+            color: "var(--foreground)",
           }}
           textareaProps={{
             placeholder:

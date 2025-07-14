@@ -46,7 +46,7 @@ const StartupCard = ({ post }: { post: StartupCardType }) => {
         <Link href={`/user/${author?._id}`}>
           <Avatar className="size-12">
             <AvatarImage src={author?.image as string} alt="user avatar" />
-            <AvatarFallback className="text-xl font-semibold bg-primary text-white">
+            <AvatarFallback className="text-xl font-semibold bg-primary text-foreground">
               {getFirstLetter(author?.name || "U")}
             </AvatarFallback>
           </Avatar>

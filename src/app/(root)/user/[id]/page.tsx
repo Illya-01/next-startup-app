@@ -5,7 +5,6 @@ import UserStartups from "@/components/UserStartups";
 import { getFirstLetter } from "@/lib/custom-utils";
 import { client } from "@/sanity/lib/client";
 import { AUTHOR_BY_ID_QUERY } from "@/sanity/lib/queries";
-import Image from "next/image";
 import { notFound } from "next/navigation";
 import React, { Suspense } from "react";
 
@@ -35,7 +34,7 @@ const UserPage = async ({ params }: { params: Promise<{ id: string }> }) => {
               src={session?.user?.image as string}
               alt="user profile picture"
             />
-            <AvatarFallback className="text-6xl bg-primary-100 text-black rounded-none">
+            <AvatarFallback className="text-6xl bg-primary-100 dark:bg-black text-foreground rounded-none">
               {getFirstLetter(session?.user?.name || "U")}
             </AvatarFallback>
           </Avatar>
