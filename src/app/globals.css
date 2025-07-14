@@ -241,11 +241,11 @@
 }
 
 @utility view-text {
-  @apply font-medium text-[16px] bg-primary-100 px-4 py-2 rounded-lg capitalize;
+  @apply font-medium text-[16px] bg-primary-100 dark:bg-black-200 px-4 py-2 rounded-lg capitalize;
 }
 
 @utility category-tag {
-  @apply font-medium text-[16px] bg-primary-100 px-4 py-2 rounded-full;
+  @apply font-medium text-[16px] bg-primary-100 dark:bg-black-200 px-4 py-2 rounded-full;
 }
 
 @utility pattern {
@@ -268,35 +268,35 @@
 /* Markdown content styles */
 @layer components {
   .markdown {
-    @apply text-black-200 leading-relaxed;
+    @apply text-foreground leading-relaxed;
   }
 
   .markdown h1 {
-    @apply text-3xl font-bold text-black my-4;
+    @apply text-2xl font-bold text-foreground my-4;
   }
 
   .markdown h2 {
-    @apply text-2xl font-bold text-black my-3;
+    @apply text-xl font-bold text-foreground my-3;
   }
 
   .markdown h3 {
-    @apply text-xl font-bold text-black my-3;
+    @apply text-lg font-bold text-foreground my-3;
   }
 
   .markdown h4 {
-    @apply text-lg font-semibold text-black my-2;
+    @apply text-base font-semibold text-foreground my-2;
   }
 
   .markdown h5 {
-    @apply text-base font-semibold text-black my-2;
+    @apply text-sm font-semibold text-foreground my-2;
   }
 
   .markdown h6 {
-    @apply text-sm font-semibold text-black my-2;
+    @apply text-xs font-semibold text-foreground my-2;
   }
 
   .markdown p {
-    @apply mb-4 text-base leading-7 text-black-200;
+    @apply mb-4 text-base leading-7 text-foreground;
   }
 
   .markdown ul {
@@ -308,7 +308,7 @@
   }
 
   .markdown li {
-    @apply text-base text-black-200 leading-7;
+    @apply text-base text-foreground leading-7;
   }
 
   .markdown a {
@@ -316,7 +316,7 @@
   }
 
   .markdown blockquote {
-    @apply border-l-4 border-primary bg-primary-100 pl-4 py-2 my-4 italic text-black-200;
+    @apply border-l-4 border-primary bg-primary-100 pl-4 py-2 my-4 italic text-foreground;
   }
 
   .markdown code {
@@ -344,7 +344,7 @@
   }
 
   .markdown td {
-    @apply border border-black-300 px-4 py-2 text-black-200;
+    @apply border border-black-300 px-4 py-2 text-foreground;
   }
 
   .markdown img {
@@ -352,7 +352,7 @@
   }
 
   .markdown strong {
-    @apply font-bold text-black;
+    @apply font-bold text-foreground;
   }
 
   .markdown em {
